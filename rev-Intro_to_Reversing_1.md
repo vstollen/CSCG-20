@@ -25,4 +25,4 @@ hax1.allesctf.net 9600
 ## Security Threads
 The problem, which led to the flag was, that the password was saved as a plain String, so it could be easily readout of the executable.
 ## Possible fix
-To fix this issue, you could try to obscure the password by encrypting or hashing it. This still wouldn`t provide full protection, since it could probably still be reverse engineered, but it would prevent "simply reading it out" using `strings`.
+To fix this issue, you could try to obscure the password by encrypting or hashing it. This still wouldn't provide full protection, since it could probably still be reverse engineered, but it would prevent "simply reading it out" using `strings`.
