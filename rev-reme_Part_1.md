@@ -64,3 +64,8 @@ Luckily it only uses Functions from the standard library, so I just copied it in
 ```
 There you go. Thats the first of the two flags! CSCG{CanIHazFlag?}
 ```
+## Security Thread
+The problem leading to the flag was, that the password could be completely reversed out of the disassembled code.
+
+## Possible Fix
+This could be fixed by not storing the password (not even encrypted), but storing something like a Hash and then comparing the hash of the entered password, with the saved hash. This would make it way harder to get the password, because good cryptographic hash-functions use one way functions, which are easy to calculate, but really hard to reverse.
