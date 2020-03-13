@@ -1,23 +1,23 @@
 # Writeup
-In this challenge we were given three files: a `ReMe.dll`, `ReMe.deps.json` and `ReMe.runtimeconfig.json`.
+In this challenge, we were given three files: a `ReMe.dll`, `ReMe.deps.json` and `ReMe.runtimeconfig.json`.
 
-We were also told, that the dll should be executed using `.NET Core Runtime 2.2 with windows`. So that was the first thing I tried. It responded with an usage hint, asking for a password. So I needed to find out the password.
+We were also told, that the dll should be executed using `.NET Core Runtime 2.2 with windows`. So that was the first thing I tried. It responded with a usage hint, asking for a password. So I needed to find out the password.
 
 So I loaded the dll into dnSpy, a .NET decompiler and looked for the Main function, where the first call was:
 ```C#
 Program.InitialCheck(args);
 ```
-So I looked into the `InitialCheck()` method, which basically consisted out of a bunch of debugger checks (ending the program, if one was detected) and one check for the first argument, which turns out, would also be the flag:
+So I looked into the `InitialCheck()` method, which consisted out of a bunch of debugger checks (ending the program, if one was detected) and one check for the first argument, which turns out, would also be the flag:
 ```C#
 bool flag5 = args[0] != StringEncryption.Decrypt("D/T9XRgUcKDjgXEldEzeEsVjIcqUTl7047pPaw7DZ9I=");
 if (flag5)
 {
-	Console.WriteLine("Nope");
-	Environment.Exit(-1);
+    Console.WriteLine("Nope");
+    Environment.Exit(-1);
 }
 else
 {
-	Console.WriteLine("There you go. Thats the first of the two flags! CSCG{{{0}}}", args[0]);
+    Console.WriteLine("There you go. Thats the first of the two flags! CSCG{{{0}}}", args[0]);
 }
 ```
 So I needed to find out what `StringEncryption.Decrypt("D/T9XRgUcKDjgXEldEzeEsVjIcqUTl7047pPaw7DZ9I=");` evaluates to and looked into it. The decompiled function looks like this:
@@ -60,7 +60,7 @@ public static string Decrypt(string cipherText)
     return cipherText;
 }
 ```
-Luckily it only uses Functions from the standard library, so I just copied it into a C# program and executed it with with the encrypted flag, resulting in the output: `CanIHazFlag?`. This was the password and also the flag, so I validated it, by calling the original program again, which then outputed the "official" flag:
+Luckily it only uses Functions from the standard library, so I just copied it into a C# program and executed it with with the encrypted flag, resulting in the output: `CanIHazFlag?`. This was the password and also the flag, so I validated it, by calling the original program again, which then output the "official" flag:
 ```
 There you go. Thats the first of the two flags! CSCG{CanIHazFlag?}
 ```
@@ -68,4 +68,4 @@ There you go. Thats the first of the two flags! CSCG{CanIHazFlag?}
 The problem leading to the flag was, that the password could be completely reversed out of the disassembled code.
 
 ## Possible Fix
-This could be fixed by not storing the password (not even encrypted), but storing something like a Hash and then comparing the hash of the entered password, with the saved hash. This would make it way harder to get the password, because good cryptographic hash-functions use one way functions, which are easy to calculate, but really hard to reverse.
+This could be fixed by not storing the password (not even encrypted), but storing something like a Hash and then comparing the hash of the entered password, with the saved hash. This would make it way harder to get the password because good cryptographic hash-functions use one-way functions, which are easy to calculate, but hard to reverse.
