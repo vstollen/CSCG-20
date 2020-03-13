@@ -23,9 +23,9 @@ else {
   puts("Thats not the password!");
 }
 ```
-In this code snipped you can see, that it reads the password, modifies it in the while-loop and does a string-compare with a predefined string in the end. So to get the password we just have to reverse what happens in the while-loop and reconstruct the password out of the predefined string, lying at `&PASSWORD_OBFUSCATED`.
+In this code snippet, you can see, that it reads the password, modifies it in the while-loop and does a string-compare with a predefined string in the end. So to get the password we just have to reverse what happens in the while-loop and reconstruct the password out of the predefined string, lying at `&PASSWORD_OBFUSCATED`.
 
-Looking at the while-loop, it just goes through the input and subtracts `119` from every character, so I just added `119` onto the string at `&PASSWORD_OBFUSCATED` and took mod 256 on it, to encorporate possible overflows, giving me the password `sta71c_tr4n5f0rm4710n_it_isw`.
+Looking at the while-loop, it just goes through the input and subtracts `119` from every character, so I just added `119` onto the string at `&PASSWORD_OBFUSCATED` and took mod 256 on it, to incorporate possible overflows, giving me the password `sta71c_tr4n5f0rm4710n_it_isw`.
 
 ## Security Threads
 The problem, leading to the flag was, that it was possible to reverse the operations done to get the obfuscated password.
