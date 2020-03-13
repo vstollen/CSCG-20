@@ -12,7 +12,7 @@ while (i < (int)input_length + -1) {
 }
 ```
 It iterates over every character and XORs it with the character position `+ 10`. So the first character is XORed with `0 + 10`, the second character with `1 + 10`, etc.
-After that it subtracts 2 from it. Both of there operations are reversible. XOR with XOR and the subtraction with an addition. To do this I wrote a short C Program:
+After that, it subtracts 2 from it. Both of these operations are reversible. XOR with XOR and the subtraction with an addition. To do this I wrote a short C Program:
 ```
 #include <stdio.h>
 #include <string.h>
